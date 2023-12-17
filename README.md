@@ -1,5 +1,3 @@
-Certainly! Here's a more detailed README template for your autoencoder project:
-
 ---
 
 # Autoencoder for Audio Signals

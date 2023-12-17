@@ -58,8 +58,13 @@ def train_autoencoder(data_dir, seq_size, num_hidden_units, latent_dim, batch_si
             best_epoch = epoch
 
         # Save the model with a timestamp in the filename
-        encoder_net.save_weights(f'{output_path}best_encoder_weights_{timestamp}.h5')
-        decoder_net.save_weights(f'{output_path}best_decoder_weights_{timestamp}.h5')
+        # with open(f'{output_path}model_config_{timestamp}.json', 'w') as f:
+        #     f.write(encoder_net.to_json())
+        # encoder_net.save_weights(f'{output_path}best_encoder_weights_{timestamp}.h5')
+        # decoder_net.save_weights(f'{output_path}best_decoder_weights_{timestamp}.h5')
+
+        encoder_net.save_weights(f'{output_path}best_encoder_weights_.h5')
+        decoder_net.save_weights(f'{output_path}best_decoder_weights_.h5')
 
     print(f"Best model saved at epoch {best_epoch + 1} with the lowest loss: {lowest_loss.numpy()}")
     # Plotting the loss values
@@ -105,8 +110,10 @@ def train_autoencoder(data_dir, seq_size, num_hidden_units, latent_dim, batch_si
     plt.show()
 
     # Save the reconstructed signal as a WAV file
+    x_pred=x_pred[0]
     scaled_x_pred = x_pred / np.max(np.abs(x_pred))
     write(output_path + 'output_reconstructed.wav', wav_reader.samplerate, scaled_x_pred.astype(np.float32))
+
 
 
 # Function to train one step of the autoencoder
@@ -140,3 +147,5 @@ if __name__ == "__main__":
 
     train_autoencoder(args.data_dir, args.seq_size, args.num_hidden_units, args.latent_dim,
                        args.batch_size, args.num_epochs, args.output_path)
+
+#python train_autoencoder.py --data_dir Marshall1960A_1105/ --seq_size 512 --num_hidden_units 128 --latent_dim 40 --batch_size 4 --num_epochs 10
