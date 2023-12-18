@@ -25,7 +25,8 @@ def ELBO_loss(x, x_pred, z_mean, z_logvar):
 
     kl = -0.5 * tf.reduce_sum(1 + z_logvar - tf.square(z_mean) - tf.exp(z_logvar))
 
-    beta = 1 / tf.cast(batch_size, tf.float32)
+   # beta = 1 / tf.cast(batch_size, tf.float32) #test 1
+    beta = 50 #test
     beta *= tf.reduce_mean(kl)
     
     elbo = reconstruction_loss + beta
