@@ -30,7 +30,7 @@ def ELBO_loss(x, x_pred, z_mean, z_logvar):
     
     elbo = reconstruction_loss + beta
 
-    return elbo
+    return elbo, reconstruction_loss, beta
 
 def build_encoder_decoder(seq_size, num_hidden_units, latent_dim):
     # Encoder
